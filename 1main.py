@@ -11,9 +11,6 @@ app = FastAPI()
 async def get_body(request: Request):
     return await request.body()
 #uvicorn main:app --reload
-@app.get("/{user_id}")
-def read_user(user_id: str):
-    return {"user_id": user_id}
 @app.get("/")
 #def read_user(url: str ):
 def read_user(url: str ,HTMLelement):
