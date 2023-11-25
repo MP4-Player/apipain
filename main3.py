@@ -2,19 +2,17 @@ from fastapi import Request, FastAPI
 from bs4 import BeautifulSoup
 import requests
 from preprocess import preprocessing
+###uvicorn main3:apppp --reload
 
+apppp = FastAPI()
 
-app = FastAPI()
-
-@app.post("/json")
-
+@apppp.post("/json")
 async def get_body(request: Request):
     return await request.body()
-###uvicorn main:app --reload
-@app.get("/{user_id}")
+@apppp.get("/{user_id}")
 def read_user(user_id: str):
     return {"user_id": user_id}
-@app.get("/")
+@apppp.get("/")
 ###def read_user(url: str ):
 def read_user(url: str ,HTMLelement):
     filtered_titles = []
@@ -22,8 +20,12 @@ def read_user(url: str ,HTMLelement):
     soup = BeautifulSoup(page.text, "html.parser")
     testing=str(HTMLelement)
     titles = soup.findAll(testing)
-####    #titles = soup.findAll(testing)
-####    #titles = soup.findAll('p')
     for data in titles:
         filtered_titles.append(data.text)
-    return {"result": preprocessing(filtered_titles)}
+        global titlese
+        titlese=(' '.join(filtered_titles))
+    #return{"txt":filtered_titles}
+    return{"txt":titlese}
+#@apppp.get("///")
+#def otv(user_name: str):
+ #return {"user_name":user_name,"result": rabot(titlese)}
